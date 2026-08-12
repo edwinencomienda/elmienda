@@ -6,7 +6,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Logo } from '@/components/store/logo';
 import {
     Sheet,
@@ -28,11 +28,12 @@ import { cart, contact, product } from '@/routes/store';
 function CartLink({
     count,
     size,
-    wiggle,
+    addedAt,
 }: {
     count: number;
     size: number;
-    wiggle: boolean;
+    /** Timestamp of the last add; 0 before anything is added. */
+    addedAt: number;
 }) {
     return (
         <Link
@@ -40,10 +41,15 @@ function CartLink({
             aria-label={`Cart, ${count} ${count === 1 ? 'item' : 'items'}`}
             className="flex size-10 items-center justify-center rounded-full text-foreground transition hover:bg-brand/15"
         >
+            {/*
+             * Keying on addedAt remounts the span, which replays the CSS
+             * animation on every add without any state to reset.
+             */}
             <span
+                key={addedAt}
                 className={cn(
                     'relative inline-flex shrink-0 motion-reduce:animate-none',
-                    wiggle && 'animate-wiggle',
+                    addedAt > 0 && 'animate-wiggle',
                 )}
             >
                 <HugeiconsIcon
@@ -95,19 +101,6 @@ const links = [
 export function StoreHeader() {
     const { count, addedAt } = useCart();
     const [open, setOpen] = useState(false);
-    const [wiggle, setWiggle] = useState(false);
-
-    /** Wiggle the cart icon each time a product is added — not on page loads. */
-    useEffect(() => {
-        if (addedAt === 0) {
-            return;
-        }
-
-        setWiggle(true);
-        const timer = window.setTimeout(() => setWiggle(false), 600);
-
-        return () => window.clearTimeout(timer);
-    }, [addedAt]);
 
     return (
         <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
@@ -138,7 +131,7 @@ export function StoreHeader() {
                         size={22}
                     />
                     <HeaderAction icon={UserIcon} label="Account" size={22} />
-                    <CartLink count={count} size={22} wiggle={wiggle} />
+                    <CartLink count={count} size={22} addedAt={addedAt} />
 
                     <Sheet open={open} onOpenChange={setOpen}>
                         <SheetTrigger

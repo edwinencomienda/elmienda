@@ -6,6 +6,7 @@ use App\Enums\ProductStatus;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -20,12 +21,12 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(3, true);
+        $name = Str::title(Collection::times(3, fn (): string => fake()->word())->implode(' '));
 
         return [
             'category_id' => Category::factory(),
-            'name' => Str::title($name),
-            'slug' => Str::slug($name),
+            'name' => $name,
+            'slug' => Str::slug($name).'-'.Str::lower(Str::random(6)),
             'description' => fake()->paragraph(),
             'status' => ProductStatus::Draft,
             'featured' => false,

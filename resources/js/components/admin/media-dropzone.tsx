@@ -17,8 +17,9 @@ export function MediaDropzone({
     onUploaded,
     className,
 }: Props) {
-    const { upload: uploadFiles, uploading } =
-        useMediaUpload(supportsPresignedUploads);
+    const { upload: uploadFiles, uploading } = useMediaUpload(
+        supportsPresignedUploads,
+    );
     const inputRef = useRef<HTMLInputElement>(null);
     const [over, setOver] = useState(false);
 

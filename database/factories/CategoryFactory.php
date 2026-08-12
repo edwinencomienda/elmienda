@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
@@ -18,11 +19,11 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(2, true);
+        $name = Str::title(Collection::times(2, fn (): string => fake()->word())->implode(' '));
 
         return [
-            'name' => Str::title($name),
-            'slug' => Str::slug($name),
+            'name' => $name,
+            'slug' => Str::slug($name).'-'.Str::lower(Str::random(6)),
             'description' => fake()->sentence(),
             'position' => 0,
         ];

@@ -30,7 +30,9 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        $product = $this->route('product');
+        // The route parameter is only a Product on update; on store it is absent.
+        $route = $this->route('product');
+        $productId = $route instanceof Product ? $route->id : null;
 
         return [
             'name' => ['required', 'string', 'max:255'],
@@ -38,7 +40,7 @@ class ProductRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Product::class)->ignore($product),
+                Rule::unique(Product::class)->ignore($productId),
             ],
             'description' => ['nullable', 'string', 'max:5000'],
             'category_id' => ['nullable', 'integer', 'exists:categories,id'],
@@ -57,7 +59,7 @@ class ProductRequest extends FormRequest
                 'nullable',
                 'integer',
                 Rule::exists(ProductVariant::class, 'id')
-                    ->where('product_id', $product?->id ?? 0),
+                    ->where('product_id', $productId ?? 0),
             ],
             'variants.*.name' => ['required', 'string', 'max:255'],
             'variants.*.sku' => ['nullable', 'string', 'max:255'],

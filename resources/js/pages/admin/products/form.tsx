@@ -17,10 +17,7 @@ import {
 import { Spinner } from '@/components/ui/spinner';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import {
-    allowNextVisit,
-    useUnsavedChanges,
-} from '@/hooks/use-unsaved-changes';
+import { allowNextVisit, useUnsavedChanges } from '@/hooks/use-unsaved-changes';
 import { dashboard } from '@/routes/admin';
 import productRoutes from '@/routes/admin/products';
 import type { MediaItem } from '@/types/media';
@@ -69,24 +66,21 @@ const emptyVariant: Variant = {
 export default function ProductForm({ product, categories, statuses }: Props) {
     const { data, setData, submit, transform, processing, isDirty, errors } =
         useForm({
-        name: product?.name ?? '',
-        slug: product?.slug ?? '',
-        description: product?.description ?? '',
-        category_id: product?.category_id ?? null,
-        status: product?.status ?? 'draft',
-        featured: product?.featured ?? false,
-        seo_title: product?.seo_title ?? '',
-        seo_description: product?.seo_description ?? '',
-        media: product?.media ?? [],
-        variants: product?.variants ?? [{ ...emptyVariant }],
-    });
+            name: product?.name ?? '',
+            slug: product?.slug ?? '',
+            description: product?.description ?? '',
+            category_id: product?.category_id ?? null,
+            status: product?.status ?? 'draft',
+            featured: product?.featured ?? false,
+            seo_title: product?.seo_title ?? '',
+            seo_description: product?.seo_description ?? '',
+            media: product?.media ?? [],
+            variants: product?.variants ?? [{ ...emptyVariant }],
+        });
 
     useUnsavedChanges(isDirty && !processing);
 
-    const updateVariant = (
-        index: number,
-        patch: Partial<Variant>,
-    ): void => {
+    const updateVariant = (index: number, patch: Partial<Variant>): void => {
         setData(
             'variants',
             data.variants.map((variant, current) =>
@@ -104,9 +98,7 @@ export default function ProductForm({ product, categories, statuses }: Props) {
             media: current.media.map((item) => item.id),
         }));
         submit(
-            product
-                ? productRoutes.update(product.id)
-                : productRoutes.store(),
+            product ? productRoutes.update(product.id) : productRoutes.store(),
             { preserveScroll: true },
         );
     };
@@ -493,7 +485,9 @@ export default function ProductForm({ product, categories, statuses }: Props) {
                             <CardContent>
                                 <MediaPicker
                                     selected={data.media}
-                                    onChange={(media) => setData('media', media)}
+                                    onChange={(media) =>
+                                        setData('media', media)
+                                    }
                                 />
                                 <InputError message={errors.media} />
                             </CardContent>

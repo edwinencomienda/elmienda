@@ -40,7 +40,7 @@ class ProductController extends Controller
             ->orderByDesc('id')
             ->paginate(20)
             ->withQueryString()
-            ->through(fn (Product $product) => [
+            ->through(fn (Product $product): array => [
                 'id' => $product->id,
                 'name' => $product->name,
                 'slug' => $product->slug,
@@ -48,7 +48,7 @@ class ProductController extends Controller
                 'featured' => $product->featured,
                 'category' => $product->category?->name,
                 'variants_count' => $product->variants_count,
-                'price_from' => $product->variants_min_price,
+                'price_from' => $product->getAttribute('variants_min_price'),
                 'thumb' => $product->media->first()?->url(['width' => 80, 'quality' => 75]),
             ]);
 
@@ -180,9 +180,14 @@ class ProductController extends Controller
             $copy->featured = false;
             $copy->save();
 
+            // The relation is already ordered by position, so re-indexing
+            // preserves the order without reading pivot attributes.
             $copy->media()->sync(
                 $product->media
-                    ->mapWithKeys(fn (Media $media) => [$media->id => ['position' => $media->pivot->position]])
+                    ->values()
+                    ->mapWithKeys(fn (Media $media, int $position): array => [
+                        $media->id => ['position' => $position],
+                    ])
                     ->all()
             );
 

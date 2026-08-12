@@ -325,9 +325,7 @@ export default function ProductsIndex({
                                 variant={link.active ? 'default' : 'outline'}
                                 size="sm"
                                 disabled={!link.url}
-                                onClick={() =>
-                                    link.url && router.get(link.url)
-                                }
+                                onClick={() => link.url && router.get(link.url)}
                                 dangerouslySetInnerHTML={{
                                     __html: link.label,
                                 }}
