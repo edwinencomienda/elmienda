@@ -1,7 +1,12 @@
-import { Menu01Icon, ShoppingCart01Icon } from '@hugeicons/core-free-icons';
+import {
+    Menu01Icon,
+    Search01Icon,
+    ShoppingCart01Icon,
+    UserIcon,
+} from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Logo } from '@/components/store/logo';
 import {
     Sheet,
@@ -11,6 +16,7 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet';
 import { useCart } from '@/hooks/use-cart';
+import { cn } from '@/lib/utils';
 import { home } from '@/routes';
 import { cart, product } from '@/routes/store';
 
@@ -19,14 +25,27 @@ import { cart, product } from '@/routes/store';
  * bottom-right edge like an online-status dot. The count only appears once
  * something is actually in the cart.
  */
-function CartLink({ count, size }: { count: number; size: number }) {
+function CartLink({
+    count,
+    size,
+    wiggle,
+}: {
+    count: number;
+    size: number;
+    wiggle: boolean;
+}) {
     return (
         <Link
             href={cart()}
             aria-label={`Cart, ${count} ${count === 1 ? 'item' : 'items'}`}
             className="flex size-10 items-center justify-center rounded-full text-foreground transition hover:bg-brand/15"
         >
-            <span className="relative inline-flex shrink-0">
+            <span
+                className={cn(
+                    'relative inline-flex shrink-0 motion-reduce:animate-none',
+                    wiggle && 'animate-wiggle',
+                )}
+            >
                 <HugeiconsIcon
                     icon={ShoppingCart01Icon}
                     size={size}
@@ -42,6 +61,30 @@ function CartLink({ count, size }: { count: number; size: number }) {
     );
 }
 
+/**
+ * Icon-only header action that matches {@link CartLink}'s hit area and hover
+ * treatment. Inert for now — placeholder for search and account features.
+ */
+function HeaderAction({
+    icon,
+    label,
+    size,
+}: {
+    icon: typeof Search01Icon;
+    label: string;
+    size: number;
+}) {
+    return (
+        <button
+            type="button"
+            aria-label={label}
+            className="flex size-10 items-center justify-center rounded-full text-foreground transition hover:bg-brand/15"
+        >
+            <HugeiconsIcon icon={icon} size={size} strokeWidth={2} />
+        </button>
+    );
+}
+
 const links = [
     { label: 'Shop', href: home() },
     { label: 'Featured', href: product() },
@@ -51,6 +94,22 @@ const links = [
 export function StoreHeader() {
     const { count } = useCart();
     const [open, setOpen] = useState(false);
+    const [wiggle, setWiggle] = useState(false);
+    const previousCount = useRef(count);
+
+    /** Wiggle the cart icon whenever the item count grows. */
+    useEffect(() => {
+        if (count > previousCount.current) {
+            setWiggle(true);
+            const timer = window.setTimeout(() => setWiggle(false), 600);
+
+            previousCount.current = count;
+
+            return () => window.clearTimeout(timer);
+        }
+
+        previousCount.current = count;
+    }, [count]);
 
     return (
         <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
@@ -75,7 +134,13 @@ export function StoreHeader() {
                 </nav>
 
                 <div className="flex flex-1 items-center justify-end gap-1">
-                    <CartLink count={count} size={22} />
+                    <HeaderAction
+                        icon={Search01Icon}
+                        label="Search"
+                        size={22}
+                    />
+                    <HeaderAction icon={UserIcon} label="Account" size={22} />
+                    <CartLink count={count} size={22} wiggle={wiggle} />
 
                     <Sheet open={open} onOpenChange={setOpen}>
                         <SheetTrigger

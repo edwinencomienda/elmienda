@@ -2,9 +2,7 @@ import {
     ArrowDown01Icon,
     ArrowRight01Icon,
     File01Icon,
-    MinusSignIcon,
     PackageIcon,
-    PlusSignIcon,
     SecurityCheckIcon,
     ShoppingCart01Icon,
     Tag01Icon,
@@ -22,7 +20,6 @@ import { Button } from '@/components/ui/button';
 import { productGallery, products } from '@/data/products';
 import { peso, useCart } from '@/hooks/use-cart';
 import { home } from '@/routes';
-import { cart } from '@/routes/store';
 
 const featured = products[0];
 
@@ -52,7 +49,6 @@ export default function Product() {
     const { add } = useCart();
     const [size, setSize] = useState(sizes[0]);
     const [frame, setFrame] = useState(frames[0]);
-    const [qty, setQty] = useState(1);
 
     const addToCart = () => {
         const variant = `${size} · ${frame}`;
@@ -62,10 +58,10 @@ export default function Product() {
             name: featured.name,
             price: featured.price,
             variant,
-            qty,
+            qty: 1,
             image: featured.image,
         });
-        toast.success(`Added ${qty} × ${featured.name}`, {
+        toast.success(`Added ${featured.name}`, {
             description: variant,
         });
     };
@@ -123,37 +119,6 @@ export default function Product() {
                         />
 
                         <div className="mt-8 flex flex-wrap items-center gap-3">
-                            <div className="flex items-center rounded-full border">
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    aria-label="Decrease quantity"
-                                    className="rounded-full"
-                                    onClick={() => setQty(Math.max(1, qty - 1))}
-                                >
-                                    <HugeiconsIcon
-                                        icon={MinusSignIcon}
-                                        size={16}
-                                        strokeWidth={2}
-                                    />
-                                </Button>
-                                <span className="w-8 text-center text-sm">
-                                    {qty}
-                                </span>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    aria-label="Increase quantity"
-                                    className="rounded-full"
-                                    onClick={() => setQty(qty + 1)}
-                                >
-                                    <HugeiconsIcon
-                                        icon={PlusSignIcon}
-                                        size={16}
-                                        strokeWidth={2}
-                                    />
-                                </Button>
-                            </div>
                             <Button
                                 size="lg"
                                 onClick={addToCart}
@@ -165,14 +130,6 @@ export default function Product() {
                                     strokeWidth={2}
                                 />
                                 Add to Cart
-                            </Button>
-                            <Button
-                                asChild
-                                variant="outline"
-                                size="lg"
-                                className="rounded-full"
-                            >
-                                <Link href={cart()}>View cart</Link>
                             </Button>
                         </div>
 

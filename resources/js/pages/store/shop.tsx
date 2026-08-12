@@ -1,4 +1,11 @@
-import { FilterHorizontalIcon } from '@hugeicons/core-free-icons';
+import {
+    BadgeIcon,
+    FilterHorizontalIcon,
+    GiftIcon,
+    GridViewIcon,
+    Image02Icon,
+    Mail01Icon,
+} from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
@@ -9,6 +16,14 @@ import { Button } from '@/components/ui/button';
 import { categories, products } from '@/data/products';
 import { peso } from '@/hooks/use-cart';
 import { product } from '@/routes/store';
+
+const categoryIcons = {
+    All: GridViewIcon,
+    Prints: Image02Icon,
+    Stickers: BadgeIcon,
+    Cards: Mail01Icon,
+    Gifts: GiftIcon,
+} as const;
 
 export default function Shop() {
     const [active, setActive] = useState('All');
@@ -54,6 +69,15 @@ export default function Shop() {
                             className="rounded-full"
                             onClick={() => setActive(category)}
                         >
+                            <HugeiconsIcon
+                                icon={
+                                    categoryIcons[
+                                        category as keyof typeof categoryIcons
+                                    ]
+                                }
+                                size={16}
+                                strokeWidth={2}
+                            />
                             {category}
                         </Button>
                     ))}
