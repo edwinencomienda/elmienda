@@ -34,12 +34,42 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+        @php
+            $seo = $page['props']['seo'] ?? [];
+            $seoTitle = isset($seo['title'])
+                ? $seo['title'].' - '.config('app.name')
+                : config('app.name');
+            $seoDescription = $seo['description'] ?? 'Handmade prints and crafts, made in small batches.';
+            $seoImage = url($seo['image'] ?? '/images/og-image.png');
+        @endphp
+
+        {{-- Rendered server-side so crawlers see them; kept in sync on SPA navigation by <Seo>. --}}
+        <link data-inertia="canonical" rel="canonical" href="{{ url()->current() }}">
+        <meta data-inertia="description" name="description" content="{{ $seoDescription }}">
+        <meta data-inertia="robots" name="robots" content="{{ $seo['robots'] ?? 'index, follow' }}">
+        <meta name="theme-color" content="#DCB6FB">
+
+        <meta property="og:site_name" content="{{ config('app.name') }}">
+        <meta property="og:locale" content="en_PH">
+        <meta data-inertia="og:type" property="og:type" content="{{ $seo['type'] ?? 'website' }}">
+        <meta data-inertia="og:title" property="og:title" content="{{ $seoTitle }}">
+        <meta data-inertia="og:description" property="og:description" content="{{ $seoDescription }}">
+        <meta data-inertia="og:url" property="og:url" content="{{ url()->current() }}">
+        <meta data-inertia="og:image" property="og:image" content="{{ $seoImage }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta data-inertia="twitter:title" name="twitter:title" content="{{ $seoTitle }}">
+        <meta data-inertia="twitter:description" name="twitter:description" content="{{ $seoDescription }}">
+        <meta data-inertia="twitter:image" name="twitter:image" content="{{ $seoImage }}">
+
         @fonts
 
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         <x-inertia::head>
-            <title>{{ config('app.name', 'Laravel') }}</title>
+            <title>{{ $seoTitle }}</title>
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">

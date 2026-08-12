@@ -3,7 +3,6 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import { Logo } from '@/components/store/logo';
-import { Button } from '@/components/ui/button';
 import {
     Sheet,
     SheetClose,
@@ -14,6 +13,34 @@ import {
 import { useCart } from '@/hooks/use-cart';
 import { home } from '@/routes';
 import { cart, product } from '@/routes/store';
+
+/**
+ * Plain cart icon — no button fill — with the item count anchored to its
+ * bottom-right edge like an online-status dot. The count only appears once
+ * something is actually in the cart.
+ */
+function CartLink({ count, size }: { count: number; size: number }) {
+    return (
+        <Link
+            href={cart()}
+            aria-label={`Cart, ${count} ${count === 1 ? 'item' : 'items'}`}
+            className="flex size-10 items-center justify-center rounded-full text-foreground transition hover:bg-brand/15"
+        >
+            <span className="relative inline-flex shrink-0">
+                <HugeiconsIcon
+                    icon={ShoppingCart01Icon}
+                    size={size}
+                    strokeWidth={2}
+                />
+                {count > 0 && (
+                    <span className="absolute -right-1.5 -bottom-1.5 flex size-4 min-w-4 items-center justify-center rounded-full bg-foreground px-1 text-[9px] leading-none font-semibold text-background ring-2 ring-background">
+                        {count > 99 ? '99+' : count}
+                    </span>
+                )}
+            </span>
+        </Link>
+    );
+}
 
 const links = [
     { label: 'Shop', href: home() },
@@ -27,13 +54,15 @@ export function StoreHeader() {
 
     return (
         <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
-            <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-                <Link href={home()} aria-label="Elmienda home">
-                    <Logo className="w-32 md:w-36" />
-                </Link>
+            <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-4">
+                <div className="flex flex-1 justify-start">
+                    <Link href={home()} aria-label="Elmienda home">
+                        <Logo className="w-32 md:w-36" />
+                    </Link>
+                </div>
 
-                {/* Desktop navigation */}
-                <nav className="hidden items-center gap-6 text-sm md:flex">
+                {/* Centred navigation, desktop only */}
+                <nav className="hidden items-center gap-8 text-sm md:flex">
                     {links.slice(0, 2).map((link) => (
                         <Link
                             key={link.label}
@@ -43,44 +72,15 @@ export function StoreHeader() {
                             {link.label}
                         </Link>
                     ))}
-                    <Button
-                        asChild
-                        className="rounded-full bg-brand text-neutral-900 hover:bg-brand/80"
-                    >
-                        <Link href={cart()}>
-                            <HugeiconsIcon
-                                icon={ShoppingCart01Icon}
-                                size={16}
-                                strokeWidth={2}
-                            />
-                            Cart ({count})
-                        </Link>
-                    </Button>
                 </nav>
 
-                {/* Mobile: cart icon, then the menu on the far right */}
-                <div className="flex items-center gap-1 md:hidden">
-                    <Link
-                        href={cart()}
-                        aria-label={`Cart, ${count} ${count === 1 ? 'item' : 'items'}`}
-                        className="relative flex size-10 items-center justify-center rounded-full transition hover:bg-brand/15"
-                    >
-                        <HugeiconsIcon
-                            icon={ShoppingCart01Icon}
-                            size={22}
-                            strokeWidth={2}
-                        />
-                        {count > 0 && (
-                            <span className="absolute top-0.5 right-0.5 flex min-w-4 items-center justify-center rounded-full bg-brand px-1 text-[10px] leading-4 font-medium text-neutral-900">
-                                {count}
-                            </span>
-                        )}
-                    </Link>
+                <div className="flex flex-1 items-center justify-end gap-1">
+                    <CartLink count={count} size={22} />
 
                     <Sheet open={open} onOpenChange={setOpen}>
                         <SheetTrigger
                             aria-label="Open menu"
-                            className="flex size-10 items-center justify-center rounded-full transition hover:bg-brand/15"
+                            className="flex size-10 items-center justify-center rounded-full transition hover:bg-brand/15 md:hidden"
                         >
                             <HugeiconsIcon
                                 icon={Menu01Icon}

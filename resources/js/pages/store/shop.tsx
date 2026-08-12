@@ -1,7 +1,8 @@
 import { FilterHorizontalIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+import { Seo } from '@/components/store/seo';
 import { StoreFooter } from '@/components/store/store-footer';
 import { StoreHeader } from '@/components/store/store-header';
 import { Button } from '@/components/ui/button';
@@ -19,7 +20,7 @@ export default function Shop() {
 
     return (
         <>
-            <Head title="Shop" />
+            <Seo />
             <StoreHeader />
 
             <section className="relative overflow-hidden border-b">

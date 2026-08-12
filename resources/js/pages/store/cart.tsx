@@ -9,8 +9,9 @@ import {
     TruckDeliveryIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { toast } from 'sonner';
+import { Seo } from '@/components/store/seo';
 import { StoreFooter } from '@/components/store/store-footer';
 import { StoreHeader } from '@/components/store/store-header';
 import { Button } from '@/components/ui/button';
@@ -33,7 +34,7 @@ export default function Cart() {
 
     return (
         <>
-            <Head title="Cart" />
+            <Seo />
             <StoreHeader />
 
             <main className="mx-auto max-w-6xl px-6 py-12">
