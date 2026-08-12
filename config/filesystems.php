@@ -60,6 +60,28 @@ return [
             'report' => false,
         ],
 
+        /*
+         * Cloudflare R2. S3-compatible, so the standard driver works; R2 only
+         * supports the "auto" region and never uses path-style endpoints.
+         *
+         * "url" is the bucket's public domain, and "transform_url" is the
+         * Cloudflare zone that serves /cdn-cgi/image/... resizing. They are
+         * usually the same host.
+         */
+        'r2' => [
+            'driver' => 's3',
+            'key' => env('R2_ACCESS_KEY_ID'),
+            'secret' => env('R2_SECRET_ACCESS_KEY'),
+            'region' => 'auto',
+            'bucket' => env('R2_BUCKET'),
+            'url' => env('R2_URL'),
+            'endpoint' => env('R2_ENDPOINT'),
+            'use_path_style_endpoint' => false,
+            'transform_url' => env('R2_TRANSFORM_URL', env('R2_URL')),
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*

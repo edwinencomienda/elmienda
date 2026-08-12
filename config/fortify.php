@@ -143,7 +143,9 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        // Public registration is intentionally disabled: the store is claimed
+        // once at /admin/setup, and every account after that is created by an
+        // administrator from /admin/users.
         Features::resetPasswords(),
         Features::emailVerification(),
     ],

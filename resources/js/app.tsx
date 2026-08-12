@@ -15,6 +15,9 @@ createInertiaApp({
             case name === 'welcome':
             case name.startsWith('store/'):
                 return null;
+            // First-run setup runs before any account exists, so it gets the
+            // auth shell rather than the admin sidebar.
+            case name === 'admin/setup':
             case name.startsWith('auth/'):
                 return AuthLayout;
             case name.startsWith('settings/'):

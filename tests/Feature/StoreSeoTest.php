@@ -5,7 +5,8 @@ use Inertia\Testing\AssertableInertia as Assert;
 test('store pages render their SEO metadata', function (string $routeName, string $title, bool $isIndexed) {
     $response = $this->get(route($routeName))
         ->assertSuccessful()
-        ->assertSee('<title>'.e($title).' - Elmienda</title>', false)
+        // Inertia's head component stamps a data-inertia attribute onto the tag.
+        ->assertSee('>'.e($title).' - Elmienda</title>', false)
         ->assertSee('data-inertia="description"', false)
         ->assertSee('data-inertia="canonical"', false)
         ->assertInertia(fn (Assert $page) => $page
