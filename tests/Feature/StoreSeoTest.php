@@ -17,5 +17,6 @@ test('store pages render their SEO metadata', function (string $routeName, strin
     );
 })->with([
     'shop' => ['home', 'Handmade Prints & Crafts', true],
+    'contact' => ['store.contact', 'Contact', true],
     'cart' => ['store.cart', 'Your Cart', false],
 ]);

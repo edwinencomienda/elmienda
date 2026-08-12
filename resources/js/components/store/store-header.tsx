@@ -6,7 +6,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Logo } from '@/components/store/logo';
 import {
     Sheet,
@@ -18,7 +18,7 @@ import {
 import { useCart } from '@/hooks/use-cart';
 import { cn } from '@/lib/utils';
 import { home } from '@/routes';
-import { cart, product } from '@/routes/store';
+import { cart, contact, product } from '@/routes/store';
 
 /**
  * Plain cart icon — no button fill — with the item count anchored to its
@@ -88,28 +88,26 @@ function HeaderAction({
 const links = [
     { label: 'Shop', href: home() },
     { label: 'Featured', href: product() },
+    { label: 'Contact', href: contact() },
     { label: 'Cart', href: cart() },
 ];
 
 export function StoreHeader() {
-    const { count } = useCart();
+    const { count, addedAt } = useCart();
     const [open, setOpen] = useState(false);
     const [wiggle, setWiggle] = useState(false);
-    const previousCount = useRef(count);
 
-    /** Wiggle the cart icon whenever the item count grows. */
+    /** Wiggle the cart icon each time a product is added — not on page loads. */
     useEffect(() => {
-        if (count > previousCount.current) {
-            setWiggle(true);
-            const timer = window.setTimeout(() => setWiggle(false), 600);
-
-            previousCount.current = count;
-
-            return () => window.clearTimeout(timer);
+        if (addedAt === 0) {
+            return;
         }
 
-        previousCount.current = count;
-    }, [count]);
+        setWiggle(true);
+        const timer = window.setTimeout(() => setWiggle(false), 600);
+
+        return () => window.clearTimeout(timer);
+    }, [addedAt]);
 
     return (
         <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
@@ -122,7 +120,7 @@ export function StoreHeader() {
 
                 {/* Centred navigation, desktop only */}
                 <nav className="hidden items-center gap-8 text-sm md:flex">
-                    {links.slice(0, 2).map((link) => (
+                    {links.slice(0, 3).map((link) => (
                         <Link
                             key={link.label}
                             href={link.href}

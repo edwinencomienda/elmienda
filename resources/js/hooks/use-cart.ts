@@ -26,16 +26,30 @@ function read(): CartItem[] {
     }
 }
 
-function write(items: CartItem[]) {
+function write(items: CartItem[], added = false) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-    window.dispatchEvent(new Event(CART_EVENT));
+    window.dispatchEvent(new CustomEvent(CART_EVENT, { detail: { added } }));
 }
 
 export function useCart() {
     const [items, setItems] = useState<CartItem[]>([]);
+    /**
+     * Bumped only when something is actually added to the cart, so UI can react
+     * to an add without mistaking the initial localStorage read for one.
+     */
+    const [addedAt, setAddedAt] = useState(0);
 
     useEffect(() => {
-        const sync = () => setItems(read());
+        const sync = (event?: Event) => {
+            setItems(read());
+
+            if (
+                event instanceof CustomEvent &&
+                (event.detail as { added?: boolean } | null)?.added
+            ) {
+                setAddedAt((previous) => previous + 1);
+            }
+        };
 
         sync();
         window.addEventListener(CART_EVENT, sync);
@@ -60,6 +74,7 @@ export function useCart() {
                           : line,
                   )
                 : [...current, { ...item, id }],
+            true,
         );
     }, []);
 
@@ -83,7 +98,7 @@ export function useCart() {
         0,
     );
 
-    return { items, count, subtotal, add, setQty, remove, clear };
+    return { items, count, subtotal, addedAt, add, setQty, remove, clear };
 }
 
 export const peso = (amount: number) => `₱${amount.toLocaleString('en-PH')}`;

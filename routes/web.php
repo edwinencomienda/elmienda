@@ -29,6 +29,11 @@ Route::inertia('/cart', 'store/cart', ['seo' => [
     'robots' => 'noindex, follow',
 ]])->name('store.cart');
 
+Route::inertia('/contact', 'store/contact', ['seo' => [
+    'title' => 'Contact',
+    'description' => 'Get in touch with Elmienda about orders, custom prints, wholesale or anything else. We reply within one to two business days.',
+]])->name('store.contact');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });

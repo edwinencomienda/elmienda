@@ -8,7 +8,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
 import { Logo } from '@/components/store/logo';
 import { home } from '@/routes';
-import { cart, product } from '@/routes/store';
+import { cart, contact, product } from '@/routes/store';
 
 const EMAIL = 'hello@elmienda.com';
 
@@ -30,6 +30,7 @@ const columns = [
     {
         title: 'Help',
         links: [
+            { label: 'Contact us', href: contact() },
             { label: 'Shipping & returns', href: '#' },
             { label: 'Custom orders', href: '#' },
             { label: 'FAQ', href: '#' },
