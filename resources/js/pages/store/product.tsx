@@ -14,12 +14,12 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { ProductGallery } from '@/components/store/product-gallery';
 import { StoreFooter } from '@/components/store/store-footer';
 import { StoreHeader } from '@/components/store/store-header';
 import { Button } from '@/components/ui/button';
 import { productGallery, products } from '@/data/products';
 import { peso, useCart } from '@/hooks/use-cart';
-import { cn } from '@/lib/utils';
 import { home } from '@/routes';
 import { cart } from '@/routes/store';
 
@@ -49,7 +49,6 @@ const details = [
 
 export default function Product() {
     const { add } = useCart();
-    const [image, setImage] = useState(productGallery[0]);
     const [size, setSize] = useState(sizes[0]);
     const [frame, setFrame] = useState(frames[0]);
     const [qty, setQty] = useState(1);
@@ -89,36 +88,10 @@ export default function Product() {
 
                 <div className="grid gap-10 md:grid-cols-2">
                     <div className="animate-fade-up">
-                        <div className="aspect-square overflow-hidden rounded-2xl bg-brand/10 ring-1 ring-brand/40 ring-inset">
-                            <img
-                                src={image}
-                                alt={featured.name}
-                                className="size-full object-cover"
-                            />
-                        </div>
-                        <div className="mt-4 grid grid-cols-4 gap-3">
-                            {productGallery.map((option, index) => (
-                                <button
-                                    key={option}
-                                    type="button"
-                                    aria-label={`View image ${index + 1}`}
-                                    onClick={() => setImage(option)}
-                                    className={cn(
-                                        'aspect-square overflow-hidden rounded-xl transition',
-                                        image === option
-                                            ? 'ring-2 ring-brand'
-                                            : 'ring-1 ring-brand/40 ring-inset hover:ring-brand',
-                                    )}
-                                >
-                                    <img
-                                        src={option}
-                                        alt=""
-                                        loading="lazy"
-                                        className="size-full object-cover"
-                                    />
-                                </button>
-                            ))}
-                        </div>
+                        <ProductGallery
+                            images={productGallery}
+                            alt={featured.name}
+                        />
                     </div>
 
                     <div className="animate-fade-up [animation-delay:0.15s]">
