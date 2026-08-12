@@ -1,6 +1,7 @@
 import { ShoppingCart01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
+import { Logo } from '@/components/store/logo';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/hooks/use-cart';
 import { home } from '@/routes';
@@ -18,11 +19,7 @@ export function StoreHeader() {
         <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
                 <Link href={home()} aria-label="Elmienda home">
-                    <img
-                        src="/logo.svg"
-                        alt="Elmienda"
-                        className="w-32 dark:invert"
-                    />
+                    <Logo className="w-36" />
                 </Link>
                 <nav className="flex items-center gap-6 text-sm">
                     {links.map((link) => (
