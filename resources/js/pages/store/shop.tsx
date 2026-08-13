@@ -41,12 +41,12 @@ export default function Shop() {
 
             <section className="relative flex items-center overflow-hidden border-b bg-[#f3eff6]">
                 <div className="relative mx-auto grid min-h-[420px] w-full max-w-6xl items-center gap-10 px-6 py-16 md:min-h-[520px] md:grid-cols-2">
-                    <div className="animate-fade-up">
+                    <div className="animate-fade-up text-center md:text-left">
                         <h1 className="text-4xl leading-tight font-semibold tracking-tight text-neutral-900 md:text-5xl">
                             Handmade prints &amp; crafts, made{' '}
                             <span className="text-brand">just for you.</span>
                         </h1>
-                        <p className="mt-4 max-w-md text-lg text-neutral-600">
+                        <p className="mx-auto mt-4 max-w-md text-lg text-neutral-600 md:mx-0">
                             Thoughtful prints, cute stickers, and meaningful
                             gifts.
                         </p>
@@ -66,7 +66,7 @@ export default function Shop() {
                     <img
                         src={heroCollage}
                         alt="Framed print, greeting card, lavender and a candle"
-                        className="mx-auto w-full max-w-lg animate-fade-up [animation-delay:0.15s]"
+                        className="order-first mx-auto w-full max-w-lg animate-fade-up [animation-delay:0.15s] md:order-none"
                     />
                 </div>
             </section>
