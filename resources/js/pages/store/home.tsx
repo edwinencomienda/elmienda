@@ -1,6 +1,7 @@
 import { ArrowRight02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
+import { Logo } from '@/components/store/logo';
 import { Seo } from '@/components/store/seo';
 import { Button } from '@/components/ui/button';
 import { home } from '@/routes';
@@ -11,11 +12,7 @@ export default function Home() {
             <Seo />
             <section className="relative flex min-h-screen flex-col items-center justify-center gap-6 overflow-hidden bg-background px-6 text-center">
                 <div className="absolute inset-0 -z-10 bg-[radial-gradient(var(--color-brand)_1.5px,transparent_1.5px)] [mask-image:linear-gradient(to_bottom,black,transparent)] [background-size:24px_24px]" />
-                <img
-                    src="/logo.svg"
-                    alt="Elmienda"
-                    className="w-96 max-w-full animate-fade-up dark:invert"
-                />
+                <Logo className="w-96 max-w-full animate-fade-up" />
                 <p className="max-w-md animate-fade-up text-lg text-muted-foreground [animation-delay:0.15s]">
                     Handmade prints &amp; crafts, made with love.
                 </p>

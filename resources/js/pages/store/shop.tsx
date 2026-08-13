@@ -9,6 +9,7 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+import { Logo } from '@/components/store/logo';
 import { Seo } from '@/components/store/seo';
 import { StoreFooter } from '@/components/store/store-footer';
 import { StoreHeader } from '@/components/store/store-header';
@@ -41,11 +42,7 @@ export default function Shop() {
             <section className="relative overflow-hidden border-b">
                 <div className="absolute inset-0 -z-10 bg-[radial-gradient(var(--color-brand)_1.5px,transparent_1.5px)] [mask-image:linear-gradient(to_bottom,black,transparent)] [background-size:24px_24px]" />
                 <div className="mx-auto flex max-w-6xl flex-col items-center px-6 py-20 text-center">
-                    <img
-                        src="/logo.svg"
-                        alt="Elmienda"
-                        className="w-80 max-w-full animate-fade-up dark:invert"
-                    />
+                    <Logo className="w-80 max-w-full animate-fade-up" />
                     <p className="mt-4 animate-fade-up text-lg text-muted-foreground [animation-delay:0.15s]">
                         Handmade prints &amp; crafts, made in small batches.
                     </p>
