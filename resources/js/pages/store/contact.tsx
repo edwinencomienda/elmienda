@@ -135,7 +135,7 @@ export default function Contact() {
                     <Button
                         type="submit"
                         size="lg"
-                        className="w-full rounded-full bg-brand text-neutral-900 hover:bg-brand/80"
+                        className="w-full"
                     >
                         <HugeiconsIcon
                             icon={Mail01Icon}

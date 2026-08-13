@@ -19,7 +19,7 @@ export default function Home() {
                 <Button
                     asChild
                     size="lg"
-                    className="animate-fade-up rounded-full bg-brand px-8 text-neutral-900 [animation-delay:0.3s] hover:bg-brand/80"
+                    className="animate-fade-up px-8 [animation-delay:0.3s]"
                 >
                     <Link href={home()}>
                         Shop Now

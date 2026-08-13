@@ -72,7 +72,6 @@ export default function Cart() {
                         </div>
                         <Button
                             asChild
-                            className="rounded-full bg-brand text-neutral-900 hover:bg-brand/80"
                         >
                             <Link href={home()}>Browse the shop</Link>
                         </Button>
@@ -114,7 +113,6 @@ export default function Cart() {
                                                     variant="ghost"
                                                     size="icon"
                                                     aria-label={`Decrease quantity of ${line.name}`}
-                                                    className="rounded-full"
                                                     onClick={() =>
                                                         setQty(
                                                             line.id,
@@ -135,7 +133,6 @@ export default function Cart() {
                                                     variant="ghost"
                                                     size="icon"
                                                     aria-label={`Increase quantity of ${line.name}`}
-                                                    className="rounded-full"
                                                     onClick={() =>
                                                         setQty(
                                                             line.id,
@@ -214,7 +211,7 @@ export default function Cart() {
 
                             <Button
                                 size="lg"
-                                className="mt-5 w-full rounded-full bg-brand text-neutral-900 hover:bg-brand/80"
+                                className="mt-5 w-full"
                                 onClick={() =>
                                     toast.info('Checkout is not wired up yet.')
                                 }
@@ -230,7 +227,7 @@ export default function Cart() {
                             <Button
                                 asChild
                                 variant="ghost"
-                                className="mt-2 w-full rounded-full"
+                                className="mt-2 w-full"
                             >
                                 <Link href={home()}>
                                     <HugeiconsIcon

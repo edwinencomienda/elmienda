@@ -9,7 +9,6 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
-import { Logo } from '@/components/store/logo';
 import { Seo } from '@/components/store/seo';
 import { StoreFooter } from '@/components/store/store-footer';
 import { StoreHeader } from '@/components/store/store-header';
@@ -39,17 +38,39 @@ export default function Shop() {
             <Seo />
             <StoreHeader />
 
-            <section className="relative overflow-hidden border-b">
-                <div className="absolute inset-0 -z-10 bg-[radial-gradient(var(--color-brand)_1.5px,transparent_1.5px)] [mask-image:linear-gradient(to_bottom,black,transparent)] [background-size:24px_24px]" />
-                <div className="mx-auto flex max-w-6xl flex-col items-center px-6 py-20 text-center">
-                    <Logo className="w-80 max-w-full animate-fade-up" />
-                    <p className="mt-4 animate-fade-up text-lg text-muted-foreground [animation-delay:0.15s]">
-                        Handmade prints &amp; crafts, made in small batches.
-                    </p>
+            <section className="relative flex items-center overflow-hidden border-b bg-[#f3eff6]">
+                <div className="relative mx-auto grid min-h-[420px] w-full max-w-6xl items-center gap-10 px-6 py-16 md:min-h-[520px] md:grid-cols-2">
+                    <div className="animate-fade-up">
+                        <h1 className="text-4xl leading-tight font-semibold tracking-tight text-neutral-900 md:text-5xl">
+                            Handmade prints &amp; crafts, made{' '}
+                            <span className="text-brand">just for you.</span>
+                        </h1>
+                        <p className="mt-4 max-w-md text-lg text-neutral-600">
+                            Thoughtful prints, cute stickers, and meaningful
+                            gifts.
+                        </p>
+                        <Button
+                            size="lg"
+                            className="mt-8 h-12 px-10 text-base"
+                            onClick={() =>
+                                document
+                                    .getElementById('catalog')
+                                    ?.scrollIntoView({ behavior: 'smooth' })
+                            }
+                        >
+                            Shop Now
+                        </Button>
+                    </div>
+
+                    <img
+                        src="/images/hero-collage.png"
+                        alt="Framed print, greeting card, lavender and a candle"
+                        className="mx-auto w-full max-w-lg animate-fade-up [animation-delay:0.15s]"
+                    />
                 </div>
             </section>
 
-            <main className="mx-auto max-w-6xl px-6 py-12">
+            <main id="catalog" className="mx-auto max-w-6xl px-6 py-12">
                 <div className="mb-8 flex flex-wrap items-center gap-2">
                     <HugeiconsIcon
                         icon={FilterHorizontalIcon}
@@ -63,7 +84,6 @@ export default function Shop() {
                                 active === category ? 'default' : 'outline'
                             }
                             size="sm"
-                            className="rounded-full"
                             onClick={() => setActive(category)}
                         >
                             <HugeiconsIcon

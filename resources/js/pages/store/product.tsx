@@ -114,7 +114,7 @@ export default function Product() {
                             <Button
                                 size="lg"
                                 onClick={addToCart}
-                                className="flex-1 rounded-full bg-brand text-neutral-900 hover:bg-brand/80"
+                                className="flex-1"
                             >
                                 <HugeiconsIcon
                                     icon={ShoppingCart01Icon}
@@ -194,7 +194,6 @@ function OptionGroup({
                         key={option}
                         variant={value === option ? 'default' : 'outline'}
                         size="sm"
-                        className="rounded-full"
                         onClick={() => onChange(option)}
                     >
                         {option}
