@@ -23,8 +23,7 @@ import { home } from '@/routes';
 
 const featured = products[0];
 
-const sizes = ['A5', 'A4', 'A3'];
-const frames = ['No frame', 'Wood', 'Black'];
+const designs = ['Kuromi', 'Spider-Man', 'Frozen', 'Minecraft', 'Dinosaur'];
 
 const perks = [
     { icon: TruckDeliveryIcon, label: 'Ships in 2–3 business days' },
@@ -36,7 +35,7 @@ const details = [
     {
         icon: File01Icon,
         title: 'Details & materials',
-        body: 'Printed on 250gsm acid-free matte paper with archival inks. Unframed prints arrive in a protective sleeve with a backing board.',
+        body: 'Laminated print panels joined with plastic rings and a twine hanger. Wipeable surface, assembled and packed by hand.',
     },
     {
         icon: PackageIcon,
@@ -47,22 +46,19 @@ const details = [
 
 export default function Product() {
     const { add } = useCart();
-    const [size, setSize] = useState(sizes[0]);
-    const [frame, setFrame] = useState(frames[0]);
+    const [design, setDesign] = useState(designs[0]);
 
     const addToCart = () => {
-        const variant = `${size} · ${frame}`;
-
         add({
-            id: `${featured.id}-${size}-${frame}`,
+            id: `${featured.id}-${design}`,
             name: featured.name,
             price: featured.price,
-            variant,
+            variant: design,
             qty: 1,
             image: featured.image,
         });
         toast.success(`Added ${featured.name}`, {
-            description: variant,
+            description: design,
         });
     };
 
@@ -100,22 +96,18 @@ export default function Product() {
                         </h1>
                         <p className="mt-3 text-2xl">{peso(featured.price)}</p>
                         <p className="mt-5 leading-relaxed text-muted-foreground">
-                            A hand-illustrated floral print, made in small
-                            batches on thick matte paper. Each one is printed
-                            and packed by hand — perfect for framing or gifting.
+                            A Kuromi-themed Abakada learning chart with
+                            hanging panels covering the vowels and full
+                            Filipino syllabary. Laminated, printed and
+                            assembled by hand — ready to hang in a nursery
+                            or classroom.
                         </p>
 
                         <OptionGroup
-                            label="Size"
-                            options={sizes}
-                            value={size}
-                            onChange={setSize}
-                        />
-                        <OptionGroup
-                            label="Frame"
-                            options={frames}
-                            value={frame}
-                            onChange={setFrame}
+                            label="Design"
+                            options={designs}
+                            value={design}
+                            onChange={setDesign}
                         />
 
                         <div className="mt-8 flex flex-wrap items-center gap-3">

@@ -12,6 +12,13 @@ export type Product = {
  */
 export const products: Product[] = [
     {
+        id: 'abakada-wall-chart',
+        name: 'Kuromi Abakada Wall Chart',
+        price: 350,
+        tag: 'Prints',
+        image: '/images/products/abakada-wall-chart.jpg',
+    },
+    {
         id: 'floral-art-print',
         name: 'Floral Art Print',
         price: 350,
@@ -71,9 +78,7 @@ export const products: Product[] = [
 
 export const productGallery = [
     products[0].image,
-    '/images/products/gallery-2.jpg',
-    '/images/products/gallery-3.jpg',
-    '/images/products/gallery-4.jpg',
+    '/images/products/abakada-wall-chart-packaged.jpg',
 ];
 
 export const categories = ['All', 'Prints', 'Stickers', 'Cards', 'Gifts'];

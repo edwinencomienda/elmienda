@@ -6,7 +6,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@inertiajs/react';
-import { Logo } from '@/components/store/logo';
+import { LogoMono } from '@/components/store/logo';
 import { home } from '@/routes';
 import { cart, contact, product } from '@/routes/store';
 
@@ -44,7 +44,7 @@ export function StoreFooter() {
             <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="lg:col-span-2">
                     <Link href={home()} aria-label="Elmienda home">
-                        <Logo className="w-32" />
+                        <LogoMono className="w-32" />
                     </Link>
                     <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
                         Handmade prints &amp; crafts, made in small batches in

@@ -18,8 +18,8 @@ Route::inertia('/hero', 'store/home', ['seo' => [
 ]])->name('store.hero');
 
 Route::inertia('/product', 'store/product', ['seo' => [
-    'title' => 'Floral Art Print',
-    'description' => 'A hand-illustrated floral art print on 250gsm acid-free matte paper, printed and packed by hand. Available in A5, A4 and A3, framed or unframed.',
+    'title' => 'Kuromi Abakada Wall Chart',
+    'description' => 'A Kuromi-themed Abakada learning chart with laminated hanging panels covering the vowels and full Filipino syllabary, assembled and packed by hand.',
     'type' => 'product',
 ]])->name('store.product');
 

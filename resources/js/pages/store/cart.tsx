@@ -97,9 +97,11 @@ export default function Cart() {
                                                 <h2 className="font-medium">
                                                     {line.name}
                                                 </h2>
-                                                <p className="mt-0.5 text-sm text-muted-foreground">
-                                                    {line.variant}
-                                                </p>
+                                                {line.variant && (
+                                                    <p className="mt-0.5 text-sm text-muted-foreground">
+                                                        {line.variant}
+                                                    </p>
+                                                )}
                                             </div>
                                             <p className="font-medium">
                                                 {peso(line.price * line.qty)}
