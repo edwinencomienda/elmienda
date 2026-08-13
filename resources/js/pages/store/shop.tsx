@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { categories, products } from '@/data/products';
 import { peso } from '@/hooks/use-cart';
 import { product } from '@/routes/store';
+import heroCollage from '../../../images/hero-collage.png';
 
 const categoryIcons = {
     All: GridViewIcon,
@@ -63,7 +64,7 @@ export default function Shop() {
                     </div>
 
                     <img
-                        src="/images/hero-collage.png"
+                        src={heroCollage}
                         alt="Framed print, greeting card, lavender and a candle"
                         className="mx-auto w-full max-w-lg animate-fade-up [animation-delay:0.15s]"
                     />
